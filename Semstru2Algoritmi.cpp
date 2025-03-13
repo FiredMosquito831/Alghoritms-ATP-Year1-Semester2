@@ -127,13 +127,99 @@ public:
 			printf_s("%d ", vector[i]);
 		}
 	}
+
+
+
+	void read_from_console_write_to_file_matrix() {
+		int rows, cols;
+		printf_s("Please input the number of rows:\n");
+		scanf_s("%d", &rows);
+		printf_s("Please input the number of columns:\n");
+		scanf_s("%d", &cols);
+		int** matrix = (int**)malloc(rows * sizeof(int));
+		for (int i = 0; i < rows; i++) {
+			matrix[i] = (int*)malloc(cols * sizeof(int));
+		}
+
+		printf_s("Please input the matrix elements:\n ");
+		for (int i = 0; i < cols; i++) {
+			for (int j = 0; j < rows; j++) {
+				scanf_s("%d", &matrix[i][j]);
+				// fprintf_s(f, "%d ", matrix[i][j]);
+				
+			}
+			// fprintf_s(f, "\n");
+		}
+		                                                             
+		FILE* f;
+
+		int error = fopen_s(&f, "./test_matrix.txt", "w");
+		if (error != 0) {
+			printf_s("Error %d opening file.", error);
+		}
+		fprintf_s(f, "%d %d\n", rows, cols);
+
+		for (int i = 0; i < cols; i++) {
+			for (int j = 0; j < rows; j++) {
+				fprintf_s(f, "%d ", matrix[i][j]);
+			}
+			fprintf_s(f, "\n");
+		}
+
+
+		fprintf_s(f, "\n");
+		fclose(f);
+
+		printf_s("Sucess!");
+
+		
+	}
+
+	void read_from_file_print_to_console_matrix() {
+
+		FILE* f;
+		int error = fopen_s(&f, "./test_matrix.txt", "r");
+		if (error != 0) {
+			printf_s("Error %d opening file.", error);
+		}
+		//// go to the end
+		//fseek(f, 0, SEEK_END);
+
+		//int file_len = ftell(f); // tells the current position
+		//rewind(f); // go back to the start
+
+		//int index = 0;
+
+		int cols, rows;
+
+		fscanf_s(f, "%d", &cols);
+		fscanf_s(f, "%d", &rows);
+		printf("%d %d\n", cols, rows);
+		int** matrix = (int**)malloc(cols * sizeof(int));
+		for (int i = 0; i < cols; i++) {
+			matrix[i] = (int*)malloc(rows * sizeof(int));
+		}
+		int element;
+		for (int i = 0; i < cols && !feof(f); i++) {
+			for (int j = 0; j < rows && !feof(f); j++) {
+				fscanf_s(f, "%d", &matrix[i][j]);
+				printf_s("%d ", matrix[i][j]);
+			}
+			printf_s("\n");
+		}
+
+		fclose(f);
+	
+	}
+
 };
 
 int main() {
 
 	seminar1 seminar1_obj;
 	Homework1 homework1_obj;
-	// homework1_obj.read_from_console_write_to_file_vector();
-	homework1_obj.read_from_file_print_to_console_vector();
-
+	// homework1_obj.read_from_console_write_to_file_vextor();
+	// homework1_obj.read_from_file_print_to_console_vector();
+	// homework1_obj.read_from_console_write_to_file_matrix();
+	homework1_obj.read_from_file_print_to_console_matrix();
 }
