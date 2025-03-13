@@ -77,7 +77,7 @@ public:
 
 class Homework1 {
 public:
-	void read_from_console_write_to_file() {
+	void read_from_console_write_to_file_vector() {
 		printf_s("Input vector size: \n");
 		int size;
 		scanf_s("%d", &size);
@@ -103,7 +103,7 @@ public:
 		printf_s("Saved to file");
 	}
 
-	void read_from_file_print_to_console() {
+	void read_from_file_print_to_console_vector() {
 		FILE* f;
 		int error = fopen_s(&f, "./test_vector.txt", "r");
 		if (error != 0) {
@@ -133,7 +133,7 @@ int main() {
 
 	seminar1 seminar1_obj;
 	Homework1 homework1_obj;
-	// homework1_obj.read_from_console_write_to_file();
-	homework1_obj.read_from_file_print_to_console();
+	// homework1_obj.read_from_console_write_to_file_vector();
+	homework1_obj.read_from_file_print_to_console_vector();
 
 }
