@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>ATP Grile Info ENG</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				background-color: #222;
+				color: #fff;
+			}
+			h1 {
+				text-align: center;
+				color: #4fc3f7;
+				cursor: pointer;
+			}
+			form {
+				width: 100%;
+				max-width: 600px;
+				background-color: #333;
+				padding: 20px;
+				border-radius: 10px;
+				box-shadow: 0 0 10px #00000080;
+				position: relative;
+			}
+			fieldset {
+				border: none;
+				padding: 0;
+				margin-bottom: 20px;
+			}
+			legend {
+				font-size: 1.2em;
+				margin-bottom: 10px;
+				color: #2196f3;
+			}
+			label {
+				display: block;
+				margin-bottom: 10px;
+			}
+			.correct {
+				color: #4caf50;
+			}
+			.incorrect {
+				color: #f44336;
+			}
+			.buttons {
+				display: flex;
+				gap: 10px;
+				justify-content: space-between;
+			}
+			button {
+				width: 100%;
+				padding: 10px;
+				font-size: 1em;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+				color: white;
+			}
+			button.reset {
+				background-color: #f44336;
+			}
+			button.submit {
+				background-color: #4caf50;
+			}
+		</style>
+	</head>
+	<body>
+		<h1 onclick="about()">ATP Grile Info ENG</h1>
+		<form id="quizForm">
+			<div class="buttons">
+				<button class="submit" type="button" onclick="submitQuiz()">Submit</button>
+				<button class="reset" type="button" onclick="location.reload()">Reset Quiz</button>
+			</div>
+		</form>
+
+		<script>
+			const questions = [
+				{
+					text: 'Which of the following algorithms cannot be used to compute a partial tree for a given graph:',
+					answers: ['Roy - Warshall algorithm', 'Kruskal’s algorithm', 'Breadth first traversing', 'Depth first traversing', 'Prim’s algorithm'],
+					correct: ['Roy - Warshall algorithm'],
+				},
+				{
+					text: 'Consider Prim’s algorithm for building a minimum spanning tree. Selecting an edge to be added to the tree corresponds to this general operation in Greedy method:',
+					answers: ['verify the acceptability of the selected element', 'simplify the problem', 'select an element from the initial set', 'none of the other answers', 'add an element to the solution set'],
+					correct: ['select an element from the initial set'],
+				},
+				{
+					text: 'Local optimum method (Greedy) finds:',
+					answers: ['Always the optimum solution', 'None of the other answers is correct', 'Optimum / acceptable / worst solution, depending on the problem solved and implementation', 'Always the worst solution', 'Always an acceptable solution'],
+					correct: ['Optimum / acceptable / worst solution, depending on the problem solved and implementation'],
+				},
+				{
+					text: 'For backtracking algorithm, this configuration means:',
+					answers: ['there is no such thing in backtracking', 'final configuration', 'none of the other answers are correct', 'initial configuration', 'solution configuration'],
+					correct: ['solution configuration'],
+					image: 'images/1.png',
+				},
+				{
+					text: 'The bisection method for solving an equation:',
+					answers: ['None of the other answers is correct', 'Is a recursive method', 'All of the other answers', 'Belongs to the Divide & Impera category', 'Sometimes finds the exact solution'],
+					correct: ['All of the other answers'],
+				},
+				{
+					text: 'Which operation of backtracking algorithm is represented by this notation',
+					answers: ['Assign and advance', 'Return after building a solution', 'Failed attempt', 'Return', 'There is no such thing in backtracking'],
+					correct: ['Return'],
+					image: 'images/2.png',
+				},
+				{
+					text: 'The number of iterations for the local optimum method (Greedy) is:',
+					answers: ['Less or equal to the number of elements in the given set', '1 less than the number of elements in the given set', 'Equal to the number of elements in the given set', 'Cannot be established in advance', 'None of the other answers is correct'],
+					correct: ['Less or equal to the number of elements in the given set'],
+				},
+				{
+					text: 'Consider this function. Which of the following (ignore the quotes) is the result of calling gigel(“Am trecut!”,1);?',
+					answers: ['„Am trecut!”', '„N-am trecut!”', '„!tucert mA”', '„m trecut!!tucert m”', '„Am trecut!!tucert mA”'],
+					correct: ['„m trecut!!tucert m”'],
+					image: 'images/3.png',
+				},
+				{
+					text: 'Recursive implementation is preferable to iterative implementation:',
+					answers: ['never', 'Always, because it runs faster', 'it does not matter, it is only a programmer’s choice', 'when iterative implementation is too complicated and recursive implementation is very simple', 'Always, because it uses less computing'],
+					correct: ['when iterative implementation is too complicated and recursive implementation is very simple'],
+				},
+				{
+					text: 'Which of the following is true for an iterative algorithm: 1. Depends on the output of another algorithm; 2. Each iteration uses the results of all previous iterations; 3. Each iteration uses data independent of all previous iterations; 4. Each iteration uses data independent of previous iteration; 5. May be implemented using a recursive function; 6. May be implemented using a non-recursive function; 7. May be implemented only using an iterative function; 8. Performs the minimum amount of operation; 9. Performs each operations only one time; 10. Has a linear complexity.',
+					answers: ['4, 6, 7, 8, 9', '3, 4, 5, 6', '3, 4, 5, 6, 9', '3, 4, 7, 9', '1, 2, 7, 10'],
+					correct: ['3, 4, 5, 6'],
+				},
+				{
+					text: 'Generalized traversing of a graph can be performed:',
+					answers: ['breadth first', 'depth first', 'only if the graph is connected', 'breadth first or depth first', 'diagonally'],
+					correct: ['breadth first or depth first'],
+				},
+				{
+					text: 'Which of the following is not true regarding complexity indicators?',
+					answers: ['they are hardware independent', 'it is not worth doing exact calculation of running time', 'they are designed for large input sizes', 'lower growth order means better algorithm', 'they are designed for best case scenarios'],
+					correct: ['they are designed for best case scenarios'],
+				},
+				{
+					text: 'Consider the graph G=(V, E) where V={1,2,3,4,5,6,7,8,9,10} and E={(1,2), (1,4), (1,6), (2,4), (2,5), (3,8), (3,10), (4,5), (4,6), (4,7), (5,7), (7,8), (7,9), (8,9), (9,10)}.If 3 is the initial vertex, which of the following is the correct breadth first traversing order:',
+					answers: ['3, 8, 10, 7, 9, 4, 5, 1, 2, 6', '3, 8, 10, 9, 7, 4, 5, 2, 1, 6', 'All of them', '3, 10, 8, 9, 7, 4, 5, 6, 2, 1', '3, 10, 8, 9, 7, 5, 4, 2, 6, 1'],
+					correct: ['All of them'],
+					image: 'images/4.png',
+				},
+				{
+					text: 'Best complexity for a general sorting algorithm is:',
+					answers: ['O(n^2)', 'All sorting algorithm are very complex', 'O(log(n))', 'O(n*log(n))', 'O(n)'],
+					correct: ['O(n*log(n))'],
+				},
+				{
+					text: 'Which of the following factors do not affect the choices made when choosing an implementation to solve a problem:',
+					answers: ['Number of primitive operations', 'Data location', 'Hardware', 'Input size', 'Memory used'],
+					correct: ['Hardware'],
+				},
+				{
+					text: 'A supercomputer can solve a problem faster than a personal computer:',
+					answers: ['Always', 'There are no supercomputers', 'Depends on the problem', 'Never', 'Depends on the algorithm and input size'],
+					correct: ['Depends on the algorithm and input size'],
+				},
+				{
+					text: 'Quick sort has a better complexity than merge sort:',
+					answers: ['in worst-case scenario', 'in best case scenario', 'Never', 'Always', 'both have the same complexity in average cases'],
+					correct: ['both have the same complexity in average cases'],
+				},
+				{
+					text: 'Consider the graph G=(V.E) where V=(1,2,3.4.5,6,7,8} and E={(1.2),(1,4),(2,3),(2,4),(3,4), (4,5),(4,6) (4,8), (6,7) (7,8))-if 7 is the initial vertex. which of the following is the correct breadth first traversing order:',
+					answers: ['7,1,2,3,4,5,6,7', '7,8,4,1,2,3,5,6', '7,6,4,5,1,2,3,8', '7,8,6,1,2,3,4,5', '7,6,8,4,1,2,3,5'],
+					correct: ['7,6,8,4,1,2,3,5'],
+					image: 'images/5.png',
+				},
+				{
+					text: 'if BF traversing of a graph does not visit all vertices, then the graph',
+					answers: ['Is symmetrical', 'Is not connected', 'None of the other answers are correct', 'Does not have cycles', 'Is a tree'],
+					correct: ['Is not connected'],
+				},
+				{
+					text: 'Consider the graph G=(V, E) where V={1,2,3.4,5.6,7,8,.9.10} and E={(1,2), (1,4), (1,6), (2.4), (2.5), (3,8), (3,10). (4,5). (4,6), (4,7), (5.7). (7,8), (7,9), (8.9), (9. 10}.If 7 is the initial vertex, which of the following is the correct breadth first traversing order:',
+					answers: ['7,4,1,2,5,6,8,3,10,9', '10,3,1,2,6,4,5,8,9,7', 'all answers are correct', '7,9,8,5,4,10,3,2,6,1', '7,8,9,10,3,4,1,2,5,6'],
+					correct: ['7,9,8,5,4,10,3,2,6,1'],
+					image: 'images/6.png',
+				},
+				{
+					text: "Consider the graph G=(V,E,W) where V={1,2,3,4,5,6,7,8.9.10},E={(1,2),(1,4),(1,5),(2,3),(2,5),(3.5),(4.7), (5,6), (5.8) (6,10), (7,8).(7,9),(8.9),(8,10)} and W={1,2,3,4,5.6,7,8.9,10.11,12,13, 14}.The root of the minimum spanning tree built using Kruskal's algorithm is:",
+					answers: ['6', '5', '9', 'no root is defined for the minimum spanning tree', '4'],
+					correct: ['no root is defined for the minimum spanning tree'],
+					image: 'images/7.png',
+				},
+				{
+					text: "Considering a graph, the partial trees built by Kruskal's algorithm and Prim's algorithm are identical:",
+					answers: ['If the graph is unweighted', 'If the graph is connected', 'Always', 'If the same initial vertex is used', 'Not always identical'],
+					correct: ['Not always identical'],
+				},
+				{
+					text: 'Which of the following are not general operations of Greedy method: 1. sort the initial set, 2. add accepted element to the solution set, 3. Select a candidate element from the initial set, 4. normalization of received data, 5. verify the acceptability of the selected element, 6. select the highest element (maximum) from the initial set, 7. return to previous element. 8. reset the consumed values set.',
+					answers: ['4,7,8', '1,4,6,7,8', '2,4,6,', '1,3,6,7,8', '2,3,5'],
+					correct: ['1,4,6,7,8'],
+				},
+				{
+					text: 'For optimal merging of n vectors:',
+					answers: ['There is no optimal merging order', 'Merge two at a time, in decreasing order of vector length', 'Merge two at a time. in increasing order of the highest element in each vector', 'Merge two at a time, in decreasing order of the highest element in each vector', 'Merge two at a time, in increasing order of vector length'],
+					correct: ['Merge two at a time, in increasing order of vector length'],
+				},
+				{
+					text: 'O(·) defines:',
+					answers: ['Asymptotic upper and lower bound for a function', 'Asymptotic lower bound for a function', 'None of the other answers are correct', 'Asymptotic upper bound for a function', 'All other answers are correct'],
+					correct: ['Asymptotic upper bound for a function'],
+				},
+				{
+					text: 'The best complexity of the sorting methods studied is:',
+					answers: ['O(n+k)', 'O(n*log(n))', 'O(n^2)', 'O(n)', 'None of the other answers'],
+					correct: ['O(n)'],
+				},
+				{
+					text: 'For a recursive algorithm, the recursive formula:',
+					answers: ['is non-linear', 'suggests the condition to stop generating recursive calls', 'is applied to decompose/reduce the problem', 'there is no “recursive formula”', 'shows when the algorithm ends'],
+					correct: ['is applied to decompose/reduce the problem'],
+				},
+				{
+					text: "Which of the following algorithms are not recursive: 1_ Prim’s algorithm; 2. Kruskal's algorithm; 3. Dijkstra’s algorithm; 4. Roy-Floyd algorithm: 5. Breadth first traversing algorithm ; 6. Depth first traversing algorithm; 7. Euclid’s algorithm; 8. Computing the sum of elements in a vector; 9. Bubble sort: 10. Computing the greatest common factor of two numbers?",
+					answers: ['5,6', 'There are no non-recursive algorithms', '4.8.9', '1,2,3', 'All of the above algorithms are recursive'],
+					correct: ['All of the above algorithms are recursive'],
+				},
+				{
+					text: 'For a recursive algorithm, the start formula:',
+					answers: ['the start is given in Formula 1', 'is verified before starting the first iteration', 'shows if the algorithm may be used', 'there is no start formula', 'is applied when a trivial problem is reached'],
+					correct: ['is applied when a trivial problem is reached'],
+				},
+				{
+					text: 'Knowing that the value of global variable n is 5, the result of calling Test (1) is:',
+					answers: ['*****', '+++++', '****+', '*****+++++', '*+++++'],
+					correct: ['*****+++++'],
+					image: 'images/8.png',
+				},
+				{
+					text: 'Consider these functions: f1(x)=x^3; f2(x)=2x^3+3x^2+3x, f3(x)= 3x^3+2x; f4(x)=x^3+x^2. If each represents the number of operations in an algorithm, which one indicates the best algorithm, from the complexity point of view?',
+					answers: ['f3(x)', 'all indicate the same complexity order', 'f2(x)', 'f4(x)', 'f1(x)'],
+					correct: ['all indicate the same complexity order'],
+				},
+				{
+					text: 'Which operation of backtracking algorithm is represented by this notation',
+					answers: ['Assign and advance', 'Return', 'there is no such thing in backtracking', 'Failed attempt', 'Return after building a solution'],
+					correct: ['Return after building a solution'],
+					image: 'images/9.png',
+				},
+				{
+					text: 'Which of the following is not a standard position in an open file:',
+					answers: ['Beginning of a file', 'All other answers', 'Current position', 'End of a file', 'Previous position'],
+					correct: ['Previous position'],
+				},
+				{
+					text: 'Which of the following is not a general file processing operation:',
+					answers: ['populating a data file', 'retrieving records', 'adding records', 'opening a file', 'positioning records'],
+					correct: ['positioning records'],
+				},
+				{
+					text: 'A sequentially organized data file stored on HD/SSD does not allow:',
+					answers: ['Direct acces by relative number', 'Sequential access', 'Exclusive acces', 'None of the other answers are correct', 'Direct acces at a given position'],
+					correct: ['Direct acces by relative number'],
+				},
+				{
+					text: 'An indexed file',
+					answers: ['is not a physical file', 'is implemented using two physical files', 'uses an alpha-numerical key to find records', 'all other answers are correct', 'is a logical concept'],
+					correct: ['all other answers are correct'],
+				},
+				{
+					text: 'Which of the following is not a data access method for files',
+					answers: ['Direct, by alpha-numerical key', 'Direct, by relative number', 'Sequential', 'Direct, by position', 'Direct, by any field value'],
+					correct: ['Direct, by any field value'],
+				},
+				{
+					text: 'Which of the following is not a file organization method:',
+					answers: ['Indexed', 'Relative', 'Multi-indexed', 'Sequential', 'Ergonomic'],
+					correct: ['Ergonomic'],
+				},
+				{
+					text: 'What is a file?',
+					answers: ['A Functional Interface Linkable Everywhere', 'An external data structure', 'A thin, flat or rounded metal tool with rough surfaces for rubbing wooden or metal objects to make them smooth or to change their shape', 'None of the other answers', 'An instrument used to finish rough finger nails'],
+					correct: ['An external data structure'],
+				},
+				{
+					text: 'The "empty" spaces in a relative file:',
+					answers: ['are deleted records / never written records', 'can never be filled', 'there are no empty spaces in a relative file', 'are valid records waiting to be processed', 'none of the other answers are correct'],
+					correct: ['are deleted records / never written records'],
+				},
+				{
+					text: 'Which of the following are not typical processing operations for binary data files: 1) populating the file, 2) depopulating a file, 3) search for one record, 4) skipping records, 5) selection of a group of records, 6) cleaning the records, 7) integral consultation, 8) cleaning the file, 9) adding records, 10) changing records, 11) deleting records?',
+					answers: ['3, 4, 5, 7, 9', '3, 4, 5, 10, 11', '2, 4, 6, 8, 10', '2, 4, 6, 8, 11', '1, 3, 5, 7, 9, 10'],
+					correct: ['2, 4, 6, 8, 11'],
+				},
+				{
+					text: 'General processing flow for working with a data file does not include:',
+					answers: ['Closing the file', 'Opening the file', 'Verification of data consistency', 'Accessing file content', 'Associating the internal file variable with an external file'],
+					correct: ['Verification of data consistency'],
+				},
+				{
+					text: 'For a binary data file, with sequential organization, records can be deleted:',
+					answers: ['After the file is closed, to avoid corrupting the data.', 'This operation is not defined for this type of file organization.', 'After the other operations are completed, but before closing the file.', 'When they are no longer needed.', 'Only when the processor is not busy with other operations.'],
+					correct: ['This operation is not defined for this type of file organization.'],
+				},
+				{
+					text: 'Which of the following is not a typical role for text files in relation to data processing applications:',
+					answers: ['Data input file', 'Data file to be processed', 'Data transfer between applications', 'All other answers are correct', 'Final report file'],
+					correct: ['Data file to be processed'],
+				},
+				{
+					text: 'In C the end of a file is detected',
+					answers: ['By a special system function', 'By counting the remaining records in the file', 'By reading the last record', 'By attempting to read after the last record', 'By calling feof()'],
+					correct: ['By attempting to read after the last record'],
+				},
+				{
+					text: 'Which of the following is not a standard text file associated with an external device in C:',
+					answers: ['stdaxn', 'stderr', 'stdin', 'stdaux', 'stdout'],
+					correct: ['stdaxn'],
+				},
+				{
+					text: 'When a consultation operation produces a large amount of data as results, it should be:',
+					answers: ['Displayed on screen and written to a text file', 'All the other answers are correct', 'Written to a text file', 'Displayed on the screen', 'None of the other answers is correct'],
+					correct: ['Written to a text file'],
+				},
+				{
+					text: 'What verifications must be performed on each record of a relative file when working in sequential access?',
+					answers: ['Verification of key uniqueness.', 'Verification of key value against file size and verification of record validity.', 'No checks are needed.', 'Verification of record validity.', 'Verification of key value against file size.'],
+					correct: ['Verification of record validity.'],
+				},
+				{
+					text: 'Which of the following can be used as a relative key for a relative file with information about students:',
+					answers: ['ATP grade', 'Height (in cm)', 'Date of birth', 'Personal number / code (from national ID)', 'None of them'],
+					correct: ['None of them'],
+				},
+				{
+					text: 'Which of the following are true for a relative file: 1) deletion of records is not possible, 2)deletion of records is a logical operation (not physical), 3) deletion or records is a physical operation, 4) deletion of records is in fact a modification of the status indicator, 5) deletion of records can not be reversed.',
+					answers: ['1, 3, 5', '1', '2, 4', '2, 4, 5', '3'],
+					correct: ['2, 4'],
+				},
+				{
+					text: 'What verifications must be performed before processing of each record of a relative file when working in direct access?',
+					answers: ['Verification of key value against file size and verification of record validity.', 'Relative files do not use keys.', 'No verification is needed.', 'Verification of record validity.', 'Verification of key value against file size.'],
+					correct: ['Verification of key value against file size and verification of record validity.'],
+				},
+				{
+					text: 'A relative key must be:',
+					answers: ['A number from an interval of Z (integer numbers)', 'A number from R (real numbers)', 'A number', 'A string', 'An alpha-numerical string'],
+					correct: ['A number from an interval of Z (integer numbers)'],
+				},
+				{
+					text: 'Which of the following is a data validation level?',
+					answers: ['Record level', 'Group of records', 'All other answers are correct', 'Field level', 'File (collection) level'],
+					correct: ['All other answers are correct'],
+				},
+				{
+					text: 'How does a recursive function ensure a finite chain of self-calls?',
+					answers: ['A decision on making a new self-call is made based on the number of previous steps performed', 'Each self-call solves a simpler problem, until a trivial problem is reached', 'There is no need to verify this, the computer stops the chain of self-calls when the stack segment is full', 'A parameter is used to limit the number of self-calls', 'Calls are counted and a limited number of iterations is permitted'],
+					correct: ['Each self-call solves a simpler problem, until a trivial problem is reached'],
+				},
+				{
+					text: 'An iterative algorithm may implemented as:',
+					answers: ['Recursive function or iterative function', 'Recursive function', 'Iterative function', 'None of the other answers are correct', 'The type of function depends on the algorithm'],
+					correct: ['Recursive function or iterative function'],
+				},
+				{
+					text: 'Which is the preferred validation method for a data field and why?',
+					answers: ['Language specific methods, because they are designed for this', 'Universal method: read as string then verify/convert, because string theory is modern', 'The one that you know how to implement, because you know it', 'Universal method: read as string then verify/convert, because reading is safe and permits any kind of validation', 'Language specific because it is easier to implement'],
+					correct: ['Universal method: read as string then verify/convert, because reading is safe and permits any kind of validation'],
+				},
+				{
+					text: 'Which of the following is not a possible validation type at field level?',
+					answers: ['Value or domain', 'Correlation with other fields', 'Existence', 'Predefined complex format', 'Nature'],
+					correct: ['Correlation with other fields'],
+				},
+				{
+					text: 'An iterative algorithm is:',
+					answers: ['An algorithm that does not call on itself', 'An algorithm implemented as an iterative function', 'A sequence of operations that are repeated, working on new data each time', 'An utopia, all algorithms are in fact recursive.', 'An algorithm that is implemented using a for loop'],
+					correct: ['A sequence of operations that are repeated, working on new data each time'],
+				},
+				{
+					text: 'Which of the following criteria may favor a recursive implementation over an iterative implementation for the same algorithm',
+					answers: ['Memory consumption', 'None of the mentioned factors', 'All mentioned factors', 'Ease of implementation', 'Speed of execution'],
+					correct: ['Ease of implementation'],
+				},
+				{
+					text: 'What formula is implemented in a recursive algorithm?',
+					answers: ['The formula depends on the problem being solved', 'Recursive formula while the problem is trivial, and start formula when the problem becomes non-trivial.', 'None of the other answers are correct', 'Recursive formula while the problem is not trivial, and start formula when the problem becomes trivial.', 'Start formula while the problem is not trivial, and recursive formula when the problem becomes trivial.'],
+					correct: ['Recursive formula while the problem is not trivial, and start formula when the problem becomes trivial.'],
+				},
+				{
+					text: 'Data validation involves:',
+					answers: ['All other answers are correct', 'Methods for correcting incorrect data, if possible', 'Actions to be taken if the data is deemed incorrect', 'Conditions that must be met be the data', 'A way to signal errors'],
+					correct: ['All other answers are correct'],
+				},
+				{
+					text: 'A recursive algorithm is:',
+					answers: ['An algorithm that calls itself', 'A sequence of operations that is repeated, working each time on results of previous repetition(s)', 'An algorithm that must end after a finite number of repetitions', 'A sequence of operations that is repeated a predetermined number of times', 'An algorithm implemented as a recursive function'],
+					correct: ['A sequence of operations that is repeated, working each time on results of previous repetition(s)'],
+				},
+				{
+					text: 'Which of the following is not a characteristic of problems that can be solved using divide et impera method?',
+					answers: ['the decomposition process ends after a finite number of steps, with trivial problems.', 'the "smaller" problems may overlap', 'they always divide into 2 "smaller" problems', 'solutions of the "smaller" problems are combined to give the solution of the original problem', 'may be divided into problems of the same type but with lower complexity, or primitive problems'],
+					correct: ['they always divide into 2 "smaller" problems'],
+				},
+				{
+					text: 'Which sorting method does not use divide et impera?',
+					answers: ['Shell sort', 'Bubble sort', 'Insert sort', 'Quick sort', 'Merge sort'],
+					correct: ['Bubble sort'],
+				},
+				{
+					text: 'When solving a problem using the divide et impera method, the problem is divided into:',
+					answers: ['4 smaller problems of the same type', '4 partially overlapping smaller problems', 'none of the other answers are correct', 'one smaller problem of the same type and one trivial problem', '2 smaller problems of the same type'],
+					correct: ['none of the other answers are correct'],
+				},
+				{
+					text: 'Which of the following statements about the divide et impera method is true?',
+					answers: ['It is a recursive algorithm so it must be implemented using a recursive function.', 'None of the other answers is true.', 'It is a recursive algorithm and can be implemented using an iterative or recursive function.', 'It is an iterative algorithm and can be implemented using an iterative or a recursive function.', 'it is an iterative algorithm and must be implemented using an iterative function.'],
+					correct: ['It is a recursive algorithm and can be implemented using an iterative or recursive function.'],
+				},
+				{
+					text: 'Which is true about counting sort: 1) has a linear growth order, 2) performs the lowest number of comparisons among all sorting algorithms, 3) does not compare elements, 4) uses additional memory space for counter vector, 5) can be used to sort a set of elements of any kind, 6)is the best sorting algorithm, because it has linear complexity',
+					answers: ['2, 5, 6', '2, 4, 5', '1, 3, 4', '3, 4, 6'],
+					correct: ['1, 3, 4'],
+				},
+				{
+					text: 'A PC can do a job better than a supercomputer at doing the same job:',
+					answers: ['if it uses a better algorithm', 'if it is overclocked', 'always', 'never', 'it the supercomputer has a bug'],
+					correct: ['if it uses a better algorithm'],
+				},
+				{
+					text: 'The reason for randomizing quicksort is:',
+					answers: ['avoid worst case scenario and near-worst case scenario', 'to make it more complicated', 'switch first element with a random one', 'to mix good choices with bad choices', 'confuse students'],
+					correct: ['avoid worst case scenario and near-worst case scenario'],
+				},
+				{
+					text: 'Best general sorting algorithm is',
+					answers: ['they are equally good, they all finish sorting faster than we can see.', 'bubble sort, because this is the one I know', 'merge sort / heap sort / quick sort because they have the lowest complexity', 'Counting sort, because it has linear complexity', 'insert sort for short vectors'],
+					correct: ['merge sort / heap sort / quick sort because they have the lowest complexity'],
+				},
+				{
+					text: 'Which of the following factors impact the running time: 1) number of primitive operations, 2) mouse type (wire/wireless), 3) input size, 4) shoes type (running/hiking), 5) location of data (internal/external), 6) length of track, 7) weather, 8) hardware?',
+					answers: ['1, 3, 4, 5, 8', 'All of them', '2, 4, 6, 7', '1, 3, 5, 8', '2, 5, 7, 8'],
+					correct: ['1, 3, 5, 8'],
+				},
+				{
+					text: 'In order to sort a vector, heap sort represents it as:',
+					answers: ['a tree', 'a balanced tree', 'a binary tree', 'no additional representation; it sorts the vector in-place', 'a complete binary tree'],
+					correct: ['no additional representation; it sorts the vector in-place'],
+				},
+				{
+					text: 'Complexity indicators are used to:',
+					answers: ['estimate the limits for the running time of an algorithm', 'design confusing questions for students', 'compute the exact running time of an algorithm', "compare algorithms' quality from the running time point of view", 'nothing, it is all just theory'],
+					correct: ["compare algorithms' quality from the running time point of view"],
+				},
+				{
+					text: 'What part(s) of the running time computation can be ignored when comparing algorithms: 1) highest ranking term, 2) lowest ranking term, 3) coefficient of the highest ranking term, 4) coefficients of terms with lowest ranks, 5) all but the highest ranking term, 6) negative terms',
+					answers: ['1, 2, 6', '2, 4', '1', '3, 5', 'none'],
+					correct: ['3, 5'],
+				},
+				{
+					text: 'The relation between growth order and asymptotic efficiency is:',
+					answers: ['lower growth order means lower asymptotic efficiency', 'lower growth order means better asymptotic efficiency', 'higher growth order means better asymptotic efficiency', 'asymptotic efficiency is proportional to the growth order', 'there is no relation'],
+					correct: ['lower growth order means better asymptotic efficiency'],
+				},
+				{
+					text: 'Which sorting algorithm is better between insert sort and merge sort?',
+					answers: ['they are both complicated algorithms, none is better', 'merge sort combined with insert sort for short vectors', 'insert sort', 'the one I know to implement', 'merge sort'],
+					correct: ['insert sort'],
+				},
+			];
+
+			const shuffle = (array) => {
+				for (let i = array.length - 1; i > 0; i--) {
+					const j = Math.floor(Math.random() * (i + 1));
+					[array[i], array[j]] = [array[j], array[i]];
+				}
+				return array;
+			};
+
+			shuffle(questions);
+			questions.forEach((question) => shuffle(question.answers));
+
+			const form = document.getElementById('quizForm');
+
+			const generateForm = () => {
+				questions.forEach((question, index) => {
+					const fieldset = document.createElement('fieldset');
+					const legend = document.createElement('legend');
+					legend.textContent = question.text;
+					fieldset.appendChild(legend);
+
+					if (question.image) {
+						const img = document.createElement('img');
+						img.src = question.image;
+						img.alt = "If the image here doesn't render, please make sure there is an images folder that contains the images referenced in the questions.";
+						img.style.maxWidth = '100%';
+						img.style.marginBottom = '10px';
+						fieldset.appendChild(img);
+					}
+
+					const inputType = question.correct.length === 1 ? 'radio' : 'checkbox';
+
+					question.answers.forEach((answer) => {
+						const label = document.createElement('label');
+						const input = document.createElement('input');
+						input.type = inputType;
+						input.name = 'question' + index;
+						input.value = answer;
+						label.appendChild(input);
+						label.appendChild(document.createTextNode(answer));
+						fieldset.appendChild(label);
+						fieldset.appendChild(document.createElement('br'));
+					});
+
+					form.insertBefore(fieldset, document.querySelector('.buttons'));
+				});
+			};
+
+			generateForm();
+
+			const submitQuiz = () => {
+				let correctAnswers = 0;
+				questions.forEach((question, index) => {
+					const selected = document.querySelectorAll(`input[name="question${index}"]:checked`);
+					const fieldset = document.querySelectorAll('fieldset')[index];
+					let selectedValues = Array.from(selected).map((input) => input.value);
+					let correctCount = question.correct.length;
+
+					let allCorrect = question.correct.every((answer) => selectedValues.includes(answer)) && selectedValues.length === correctCount;
+
+					const labels = fieldset.querySelectorAll('label');
+					labels.forEach((label) => {
+						const input = label.querySelector('input');
+						if (question.correct.includes(input.value)) {
+							label.classList.add('correct');
+							label.innerHTML += ' ✔';
+						} else if (input.checked) {
+							label.classList.add('incorrect');
+							label.innerHTML += ' ✘';
+						}
+					});
+
+					if (allCorrect) {
+						correctAnswers++;
+					}
+				});
+				alert('You got ' + correctAnswers + ' out of ' + questions.length + ' correct.');
+			};
+
+			const about = () => {
+				alert('All purpose form created by tudor ᗜˬᗜ');
+			};
+		</script>
+	</body>
+</html>
